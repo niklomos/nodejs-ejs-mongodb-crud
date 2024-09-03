@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>รายละเอียดสินค้า</title>
+        <%- include('link') %>
+    </head>
+    <body>
+        <%- include('navbar') %>
+        <% if(products) { %>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-2"></div>
+                    <div class="col-lg-8">
+                        <div class="card mt-4">
+                            <img class=" " src="images/products/<%= products.image %>" alt="Product Image" width="30%" />
+                            <div class="card-body">
+                                <h3 class="card-title fw-bold"><%= products.name %></h3>
+                                <h5 class="text-danger">฿<%= products.price.toLocaleString('en-US') %></h5>
+                                <p class="card-text"> <ul>
+                                    <% if (products.description) { %>
+                                      <% const descriptions = products.description.split('#').filter(item => item.trim() !== ''); %>
+                                      <% descriptions.forEach(function(item) { %>
+                                        <li><%= item.trim() %></li>
+                                      <% }); %>
+                                    <% } %>
+                                  </ul></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <% } %>
+    </body>
+</html>
+

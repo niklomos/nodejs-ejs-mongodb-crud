@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>แบบฟอร์มแก้ไขข้อมูล</title>
+    <%- include('link') %>
+    <style>
+        /* Style for the image preview */
+        .img-preview {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+  <%- include('navbar') %>
+    <div class="container mt-4">
+      <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card">
+            <div class="card-header bg-dark text-light">
+                <h5 class="mb-0">แบบฟอร์มแก้ไขข้อมูลสินค้า</hถ>
+            </div>
+            <div class="card-body">
+                <form id="updateForm" method="post" action="/update" enctype="multipart/form-data">
+                    <input type="hidden" name="id" value="<%= products._id %>">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">ชื่อสินค้า</label>
+                        <input type="text" class="form-control" id="name" name="name" value="<%= products.name %>" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="price" class="form-label">ราคา</label>
+                        <input type="text" class="form-control" id="price" name="price" value="<%= products.price %>" required>
+                    </div>
+                    <div class="mb-3">
+                        <!-- Image preview container -->
+                        <img id="imagePreview" src="/images/products/<%= products.image %>" alt="Image Preview" class="img-preview mb-2">
+                        <input type="file" class="form-control" id="imageInput" name="image">
+                    </div>
+                    <div class="mb-3">
+                        <label for="title" class="form-label">หัวข้อ</label>
+                        <textarea class="form-control" id="title" name="title" rows="2" required><%= products.title %></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="description" class="form-label">รายละเอียด</label>
+                        <textarea class="form-control" id="description" name="description" rows="4" required><%= products.description %></textarea>
+                    </div>
+                    <button type="submit" id="submitButton" class="btn btn-primary" disabled>อัปเดต</button>
+                </form>
+            </div>
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            let isModified = false;
+
+            $('form :input').on('input', function () {
+                isModified = true;
+                $('#submitButton').prop('disabled', false); // Enable the submit button if any input is changed
+            });
+        });
+        
+        document.getElementById('imageInput').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            const reader = new FileReader();
+            const imagePreview = document.getElementById('imagePreview');
+
+            reader.onload = function(e) {
+                imagePreview.src = e.target.result;
+            }
+
+            if (file) {
+                reader.readAsDataURL(file);
+            }
+        });
+        
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>แบบฟอร์มบันทึกข้อมูล</title>
+    <%- include('link') %>
+</head>
+<body>
+    <%- include('navbar') %>
+
+    <div class="container mt-4">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header bg-dark text-light">
+                        <h5 class="card-title">แบบฟอร์มบันทึกข้อมูลสินค้า</h5>
+                    </div>
+                    <div class="card-body">
+                        <form method="post" action="/insert" enctype="multipart/form-data" id="productForm">
+                            <div class="mb-3">
+                                <label for="name" class="form-label">ชื่อสินค้า</label>
+                                <input type="text" class="form-control" id="name" name="name" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="price" class="form-label">ราคา</label>
+                                <input type="number" class="form-control" id="price" name="price" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="image" class="form-label">ภาพสินค้า</label>
+                                <input type="file" class="form-control" id="image" name="image" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="title" class="form-label">หัวข้อ</label>
+                                <textarea class="form-control" id="title" name="title" rows="2" required></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label for="description" class="form-label">รายละเอียด</label>
+                                <textarea class="form-control" id="description" name="description" rows="4" required></textarea>
+                            </div>
+                            <div class="d-flex justify-content-end">
+                                <button type="submit" class="btn btn-primary">บันทึก</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <%- include('partials/sweetalert') %> <!-- Include SweetAlert2 partial here -->
+
+    <script>
+        $(document).ready(function() {
+            $('#productForm').on('submit', function(event) {
+                event.preventDefault(); // Prevent the default form submission
+
+                // Create a FormData object
+                var formData = new FormData(this);
+
+                $.ajax({
+                    url: '/insert',
+                    type: 'POST',
+                    data: formData,
+                    contentType: false, // Set to false to prevent jQuery from setting Content-Type
+                    processData: false, // Set to false to prevent jQuery from processing data
+                    success: function(response) {
+                        // Call showAlert function from the partial
+                        showAlert('Success!', 'ข้อมูลถูกบันทึกเรียบร้อยแล้ว', 'success', '/');
+                    },
+                    error: function(xhr, status, error) {
+                        // Call showAlert function from the partial
+                        showAlert('Error!', 'เกิดข้อผิดพลาดในการบันทึกข้อมูล', 'error');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

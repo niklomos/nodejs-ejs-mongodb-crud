@@ -1,0 +1,6 @@
+nodejs+express + ejs template
+database:MongoDB
+
+shopping system by kongraksiam
+
+not complete

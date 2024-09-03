@@ -1,0 +1,38 @@
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <a class="navbar-brand ms-3" href="/">
+        <img src="images/home/logo.png" alt="Logo" height="30" width="">
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav me-auto">
+            <li class="nav-item dropdown mt-2">
+                <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    ระบบหลังบ้าน (Store)
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="/manage">จัดการสินค้า</a></li>
+                    <li><a class="dropdown-item" href="/add-product">บันทึกสินค้า</a></li>
+                </ul>
+            </li>
+            <% if (session.login) { %>
+                <li  class="nav-item  mt-2">
+                    <a class="nav-link  text-warning" href="#"><i class="fas fa-user me-2"></i><%= session.username %></a>
+                </li>
+                <% } %> 
+        </ul>
+        <ul class="navbar-nav ms-auto">
+            <% if (session.login) { %>
+            <li class="nav-item">
+                <a class="nav-link btn btn-danger btn-sm  text-light me-2" href="/logout">ออกจากระบบ</a>
+            </li>
+            <% } else { %>
+            <li class="nav-item">
+                <a class="nav-link btn btn-primary btn-sm  text-light me-2" href="/admin">เข้าสู่ระบบ</a>
+            </li>
+            <% } %>
+        </ul>
+    </div>
+  </nav>
+  

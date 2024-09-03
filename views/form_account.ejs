@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>แบบฟอร์มบันทึกข้อมูล</title>
+    <%- include('link') %>
+</head>
+<body>
+    <%- include('navbar') %>
+
+    <div class="container mt-4">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title">เข้าสู่ระบบ</h5>
+                    </div>
+                    <div class="card-body">
+                        <form method="post" action="/insert_account" id="accountForm">
+                            <div class="mb-3">
+                                <label for="username" class="form-label">Username</label>
+                                <input type="text" class="form-control" id="username" name="username" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Password</label>
+                                <input type="password" class="form-control" id="password" name="password" required>
+                            </div>
+                            <input type="hidden" name="permission_status" value="a">
+                            <div class="mt-3">
+                                <button type="submit" class="btn btn-primary">บันทึก</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <%- include('partials/sweetalert') %> <!-- Include SweetAlert2 partial here -->
+
+    <script>
+        $(document).ready(function() {
+            $('#accountForm').on('submit', function(event) {
+                event.preventDefault(); // Prevent the default form submission
+
+                $.ajax({
+                    url: '/insert_account',
+                    type: 'POST',
+                    data: $(this).serialize(),
+                    success: function(response) {
+                        // Call showAlert function from the partial
+                        showAlert('Success!', 'ข้อมูลถูกบันทึกเรียบร้อยแล้ว', 'success', '/');
+                    },
+                    error: function(xhr, status, error) {
+                        // Call showAlert function from the partial
+                        showAlert('Error!', 'เกิดข้อผิดพลาดในการบันทึกข้อมูล', 'error');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Shopping</title>
+        <%- include('link') %>
+    </head>
+    <body>
+        <%- include('navbar') %>
+        <div class="container">
+            <div class="row my-3">
+                <% Object.values(products).forEach(function(item){ %>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card h-100">
+                        <a href="/<%= item._id%>"><img class="card-img-top" src="/images/products/<%= item.image%>" alt="" /></a>
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold"><%= item.name%></h5>
+                            <h6 class="card-text"> <%= item.title %></h6>
+                            <h5 class="text-danger">฿<%= item.price.toLocaleString('en-US') %></h5>
+                        </div>
+                        <div class="card-footer d-flex justify-content-between align-items-center">
+                            <button class="btn btn-link text-dark" type="submit" name="favorite"><i class="far fa-heart fa-lg "></i></button>
+                            <a href="/<%= item._id%>" class="btn btn-primary btn-sm   " style="width:100%;">ดูรายละเอียด</a>
+                        </div>
+                    </div>
+                </div>
+                <% }) %>
+            </div>
+        </div>
+    </body>
+</html>

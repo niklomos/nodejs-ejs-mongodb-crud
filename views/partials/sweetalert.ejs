@@ -1,0 +1,16 @@
+<!-- views/partials/sweetalert2.ejs -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    function showAlert(title, text, icon, redirectUrl) {
+        Swal.fire({
+            title: title,
+            text: text,
+            icon: icon,
+            confirmButtonText: 'OK'
+        }).then((result) => {
+            if (result.isConfirmed && redirectUrl) {
+                window.location.href = redirectUrl; // Redirect to the specified URL
+            }
+        });
+    }
+</script>
